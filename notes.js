@@ -12,17 +12,17 @@ const listNotes = () => {
     console.log(chalk.blue.inverse('Your notes'));
 
     notes.forEach((note) => {
-        console.log(note.title);
-    })
+        console.log(`${note.id}. ${note.title}`);
+    });
 
 }
 
-const readNote = (title) => {
+const readNote = (id) => {
     const notes = loadNotes()
-    const note = notes.find(note => title === note.title)
+    const note = notes.find(note => id === note.id)
 
     if(note) {
-        console.log(chalk.inverse(`Note to read: ${note.title} by ${note.body}`));
+        console.log(chalk.inverse(`Note to read: ${note.id}. ${note.title} by ${note.body}`));
     } else {
         console.log(chalk.red.inverse('No note found!'));
     }
@@ -34,6 +34,7 @@ const addNote = (title, body) => {
 
     if(!duplicateNote) {
         notes.push({
+            id: notes.length +1,
             title: title,
             body: body
         })
@@ -46,11 +47,20 @@ const addNote = (title, body) => {
     
 }
 
-const removeNote = (title) => {
+const removeNote = (id) => {
+    // remove by id
     const notes = loadNotes();
-    const keepNotes = notes.filter(note => note.title !== title)
+    const keepNotes = notes.filter(note => note.id !== id)
 
     if(notes.length > keepNotes.length) {
+        // set new id for remaining notes
+        let newId = 1;
+        keepNotes.map(obj => {
+            obj.id = newId;
+            newId++;
+            console.log(obj);
+        });
+
         console.log(chalk.green.inverse('Note removed!'));
     } else {
         console.log(chalk.red.inverse('No note found!'));
