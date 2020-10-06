@@ -1,48 +1,52 @@
 const chalk = require('chalk')
 const fs = require('fs');
 
-const getNotes = () => {
-    return 'Get notes: ';
-
-
-}
-
 const listNotes = () => {
     const notes = loadNotes()
-    console.log(chalk.blue.inverse('Your notes'));
+    console.log(chalk.hex('f6d55c').bold('Your notes'));
 
     notes.forEach((note) => {
-        console.log(`${note.id}. ${note.title}`);
+        console.log(chalk.hex('3caea3').bold(`${note.id}. ${note.t}`));
     });
 
 }
+
 
 const readNote = (id) => {
     const notes = loadNotes()
     const note = notes.find(note => id === note.id)
 
     if(note) {
-        console.log(chalk.inverse(`Note to read: ${note.id}. ${note.title} by ${note.body}`));
+        // console.log(chalk.inverse(`Note to read: ${note.id}. ${note.t} by \n ${note.c} \n`));
+        console.log(chalk.hex('20639B').bold(`${note.id}. ${note.t}`));
+        console.log(chalk.hex('3CAEA3').bold(`${note.c} \n`));
+
     } else {
-        console.log(chalk.red.inverse('No note found!'));
+        console.log(chalk.hex('ed553b').bold('No note found!'));
     }
 }
 
+// 20639b blue
+// 3caea3 green
+// f6d55c yellow
+// ed553b red
+
 const addNote = (title, body) => {
     const notes = loadNotes();
-    const duplicateNote = notes.find(note => note.title === title)
+    const duplicateNote = notes.find(note => note.t === title)
 
     if(!duplicateNote) {
         notes.push({
             id: notes.length +1,
-            title: title,
-            body: body
+            t: title,
+            c: body
         })
 
         saveNotes(notes);
-        console.log(chalk.green.inverse('New note added!'));
+        // console.log(chalk.hex('3caea3').invese.bold.bgWhite('New note added!'));
+        console.log(chalk.hex('3caea3').bold('New note added!'));
     } else {
-        console.log(chalk.red.inverse('Duplicate title taken!'));
+        console.log(chalk.hex('ed553b').bold('Note title already exists!'));
     }
     
 }
@@ -58,12 +62,11 @@ const removeNote = (id) => {
         keepNotes.map(obj => {
             obj.id = newId;
             newId++;
-            console.log(obj);
         });
 
-        console.log(chalk.green.inverse('Note removed!'));
+        console.log(chalk.hex('3caea3').bold(`Your note is gone forever!`));
     } else {
-        console.log(chalk.red.inverse('No note found!'));
+        console.log(chalk.hex('ed553b').bold('Note not found!'));
     }
 
     saveNotes(keepNotes);
@@ -91,5 +94,5 @@ const loadNotes = () => {
     
 }
 
-module.exports = {getNotes, addNote, removeNote, listNotes, readNote}
+module.exports = {addNote, removeNote, listNotes, readNote}
 

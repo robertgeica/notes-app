@@ -1,43 +1,49 @@
+#!/usr/bin/env node
+
 const yargs = require('yargs')
 const notes = require('./notes.js')
 
 // customize yargs version
 yargs.version('1.1.0')
 
+// title and body options
+const titleOptions = {
+    describe: 'Note title',
+    demandOption: true,
+    type: 'string'
+};
+
+const bodyOptions = {
+    describe: 'Note body',
+    demandOption: true,
+    type: 'string'
+};
+
+const idOptions = {
+    describe: 'Note id',
+    demandOption: true,
+    type: 'Number'
+};
+
 // create add command
 yargs.command({
-    command: 'add',
+    command: 'add --t yourTitle --c yourContent',
     describe: 'Add a new note',
-    builder: {
-        title: {
-            describe: 'Note title',
-            demandOption: true,
-            type: 'string'
-        },
 
-        body: {
-            describe: 'Note body',
-            demandOption: true,
-            type: 'string'
-        }
-    },
+    t: titleOptions,
+    c: bodyOptions,
+
     handler(argv) {
-        notes.addNote(argv.title, argv.body)
-
+        notes.addNote(argv.t, argv.c)
     }
 })
 
 // create remove command
 yargs.command({
-    command: 'remove',
+    command: 'remove --id noteId',
     describe: 'Remove a note',
-    builder: {
-        id: {
-            describe: 'Note id to remove',
-            demandOption: true,
-            type: 'Number'
-        }
-    },
+    id: idOptions,
+
     handler(argv) {
         notes.removeNote(argv.id)
     }
@@ -47,6 +53,7 @@ yargs.command({
 yargs.command({
     command: 'list',
     describe: 'List all notes',
+
     handler() {
         notes.listNotes()
     }
@@ -54,17 +61,12 @@ yargs.command({
 
 // create read command
 yargs.command({
-    command: 'read',
+    command: 'read --id noteId',
     describe: 'Read a note',
-    builder: {
-        title: {
-            describe: 'Read title',
-            demandOption: true,
-            type: 'string'
-        }
-    },
+    id: idOptions,
+
     handler(argv) {
-        notes.readNote(argv.title)
+        notes.readNote(argv.id)
     }
 })
 

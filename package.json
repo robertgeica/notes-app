@@ -1,16 +1,18 @@
 {
-  "name": "notes-app",
+  "name": "cli-notes-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple command line interface notes-app.",
   "main": "app.js",
+  "bin": {
+    "notes-app": "./app.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "robertgeica",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.0.0",
-    "validator": "^13.0.0",
     "yargs": "^15.3.1"
   }
 }
