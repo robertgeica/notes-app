@@ -1,6 +1,6 @@
 const chalk = require('chalk')
 const fs = require('fs');
-
+// error when loading empty list (create file)
 const listNotes = () => {
     const notes = loadNotes()
     console.log(chalk.hex('f6d55c').bold('Your notes'));
@@ -87,7 +87,7 @@ const loadNotes = () => {
         const dataJSON = dataBuffer.toString();
         return JSON.parse(dataJSON);
     } catch(e) {
-        console.log('error: ', e);
+        console.log('No file exists. Creating file..');
         return []
     }
 

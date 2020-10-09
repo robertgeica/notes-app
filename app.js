@@ -27,7 +27,7 @@ const idOptions = {
 
 // create add command
 yargs.command({
-    command: 'add --t yourTitle --c yourContent',
+    command: 'add',
     describe: 'Add a new note',
 
     t: titleOptions,
@@ -40,7 +40,7 @@ yargs.command({
 
 // create remove command
 yargs.command({
-    command: 'remove --id noteId',
+    command: 'remove',
     describe: 'Remove a note',
     id: idOptions,
 
@@ -61,7 +61,7 @@ yargs.command({
 
 // create read command
 yargs.command({
-    command: 'read --id noteId',
+    command: 'read',
     describe: 'Read a note',
     id: idOptions,
 
